@@ -4,7 +4,7 @@ using UnityEngine;
 namespace NGame
 {
 	[ObjectSystem]
-	public class UiAwakeSystem : AwakeSystem<UI, GameObject>
+	public class UIAwakeSystem : AwakeSystem<UI, GameObject>
 	{
 		public override void Awake(UI self, GameObject gameObject)
 		{
