@@ -18,18 +18,18 @@ namespace NGame
 		{
 			get
 			{
-				return this.GameObject.name;
+				return this.gameObject.name;
 			}
 		}
 
-		public GameObject GameObject { get; private set; }
+		public GameObject gameObject { get; private set; }
 
 		public Dictionary<string, UI> children = new Dictionary<string, UI>();
 		
 		public void Awake(GameObject gameObject)
 		{
 			this.children.Clear();
-			this.GameObject = gameObject;
+			this.gameObject = gameObject;
 		}
 
 		public override void Dispose()
@@ -46,14 +46,14 @@ namespace NGame
 				ui.Dispose();
 			}
 			
-			UnityEngine.Object.Destroy(GameObject);
+			UnityEngine.Object.Destroy(gameObject);
 			children.Clear();
 			this.Parent = null;
 		}
 
 		public void SetAsFirstSibling()
 		{
-			this.GameObject.transform.SetAsFirstSibling();
+			this.gameObject.transform.SetAsFirstSibling();
 		}
 
 		public void Add(UI ui)
@@ -80,7 +80,7 @@ namespace NGame
 			{
 				return child;
 			}
-			Transform childGameObject = this.GameObject.transform.Find(name);
+			Transform childGameObject = this.gameObject.transform.Find(name);
 			if (childGameObject == null)
 			{
 				return null;

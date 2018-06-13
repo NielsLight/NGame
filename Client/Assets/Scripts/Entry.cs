@@ -17,7 +17,8 @@ namespace NGame
 
 				Game.Scene.AddComponent<UIComponent>();
 
-				Game.EventSystem.Run(EventIdType.TestHotfixSubscribMonoEvent, "TestHotfixSubscribMonoEvent");
+
+                Game.EventSystem.Run(EventIdType.EnterBattleGenerateMap);
 			}
 			catch (Exception e)
 			{

@@ -7,5 +7,6 @@ namespace NGame
     {
 	    public const string Root = "Root";
 	    public const string UILoading = "UILoading";
+        public const string GemMap = "GemMap";
 	}
 }
