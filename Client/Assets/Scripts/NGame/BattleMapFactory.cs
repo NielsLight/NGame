@@ -12,6 +12,8 @@ namespace NGame
 
         private Dictionary<GemType, GameObject> items = new Dictionary<GemType, GameObject>();
 
+        private GameObject m_BattleMap;
+
         private UI map;
 
         private int row = 5;
@@ -27,12 +29,13 @@ namespace NGame
                 GemType type = gemConfigs[i].GetComponent<GemConfig>().gemType;
                 items.Add(type, gemConfigs[i]);
             }
+            m_BattleMap = Resources.Load<GameObject>("BattleMap") ;
         }
 
         public UI Create(Scene scene, string type, GameObject parent)
         {
             PrepareResource();
-            map = ComponentFactory.Create<UI, GameObject>(new GameObject("map"));
+            map = ComponentFactory.Create<UI, GameObject>(GameObject.Instantiate(m_BattleMap));
             for (int i = 0; i < row; i++)
                 for (int j = 0; j < col; j++)
                 {
@@ -44,7 +47,8 @@ namespace NGame
                         if (bothSame)
                         {
                             GemType random = BattleMapFactory.GetRandomGemTypeExcude(preType);
-                            UI gem = ComponentFactory.Create<UI, GameObject>(items[random]);
+                            GameObject obj = GameObject.Instantiate(items[random]);
+                            UI gem = ComponentFactory.Create<UI, GameObject>(obj);
                             gem.AddComponent<GemComponent, GemData, GemType>(new GemData(), random);
                             gem.gameObject.transform.SetParent(map.gameObject.transform);
                             gems.Add(new Vector2(i, j), gem);
@@ -59,7 +63,8 @@ namespace NGame
         private UI CreateOneGem(int i, int j)
         {
             GemType random = BattleMapFactory.GetRandomGemType();
-            UI gem = ComponentFactory.Create<UI, GameObject>(items[random]);
+            GameObject obj = GameObject.Instantiate(items[random]);
+            UI gem = ComponentFactory.Create<UI, GameObject>(obj);
             gem.AddComponent<GemComponent, GemData, GemType>(new GemData(), random);
             gem.gameObject.transform.SetParent(map.gameObject.transform);
             gems.Add(new Vector2(i, j), gem);
