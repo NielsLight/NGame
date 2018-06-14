@@ -44,6 +44,7 @@ namespace NGame
         public UI Create(Scene scene, string type, GameObject parent)
         {
             PrepareResource();
+            Game.Scene.AddComponent<GemExchangeComponet>();
             map = ComponentFactory.Create<UI, GameObject>(GameObject.Instantiate(m_BattleMap));
             List<GemType> excudeType = new List<GemType>();
             bool bothSame = false;
@@ -72,7 +73,7 @@ namespace NGame
                     CreateOneGem(i, j, excudeType.ToArray());
                     excudeType.Clear();
                 }
-
+            Game.Scene.GetComponent<GemExchangeComponet>().SetAllGemsObject(gems);
             return map;
         }
 
