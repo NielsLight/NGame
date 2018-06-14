@@ -14,6 +14,8 @@ namespace NGame
 				DontDestroyOnLoad(gameObject);
 				Game.EventSystem.Add(DLLType.Model, typeof(Entry).Assembly);
 
+                Game.Scene.AddComponent<ResourcesComponent>();
+
 				Game.Scene.AddComponent<UIComponent>();
 
 

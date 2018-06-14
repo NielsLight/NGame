@@ -73,7 +73,7 @@ namespace NGame
 
     public class ResourcesComponent : Component
     {
-        public static AssetBundleManifest AssetBundleManifestObject { get; set; }
+        public static AssetBundleManifest assetBundleManifestObject { get; set; }
 
         private readonly Dictionary<string, UnityEngine.Object> resourceCache = new Dictionary<string, UnityEngine.Object>();
 

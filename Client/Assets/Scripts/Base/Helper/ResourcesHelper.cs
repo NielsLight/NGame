@@ -22,7 +22,7 @@ namespace NGame
 #if UNITY_EDITOR
 				dependencies = AssetDatabase.GetAssetBundleDependencies(assetBundleName, true);
 #elif UNITY_STANDALONE
-            dependencies = ResourcesComponent.AssetBundleManifestObject.GetAllDependencies(assetBundleName);
+            dependencies = ResourcesComponent.assetBundleManifestObject.GetAllDependencies(assetBundleName);
 #endif
             return dependencies;
 		}
