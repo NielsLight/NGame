@@ -198,7 +198,7 @@ namespace NGameEditor
 						bundleInfo.ParentPaths.Add(path1);
 						this.dictionary.Add(pt, bundleInfo);
 
-						SetAtlas(pt, go.name);
+						//SetAtlas(pt, go.name);
 
 						continue;
 					}
