@@ -30,5 +30,6 @@ obj/
 ehthumbs.db
 Thumbs.db
 .vs
-Client/Client.CSharp.csproj
-Client/Client.sln
+Client/*.sln
+Client/*.csproj
+Client/*.user
