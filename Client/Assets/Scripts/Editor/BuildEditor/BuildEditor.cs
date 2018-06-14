@@ -97,7 +97,7 @@ namespace NGameEditor
 						continue;
 					}
 
-					SetAtlas(pt, "");
+					//SetAtlas(pt, "");
 				}
 			}
 		}
@@ -148,8 +148,7 @@ namespace NGameEditor
 					{
 						continue;
 					}
-
-					SetBundleAndAtlas(pt, go.name.ToLower());
+                    SetBundleAndAtlas(pt, go.name.ToLower());
 				}
 			}
 		}
@@ -285,16 +284,16 @@ namespace NGameEditor
 				return;
 			}
 
-			if (textureImporter.spritePackingTag != "")
-			{
-				return;
-			}
+            if (textureImporter.spritePackingTag != "")
+            {
+                return;
+            }
 
-			textureImporter.spritePackingTag = name;
-			AssetDatabase.ImportAsset(path, ImportAssetOptions.ForceSynchronousImport | ImportAssetOptions.ForceUpdate);
-		}
+            textureImporter.spritePackingTag = name;
+            AssetDatabase.ImportAsset(path, ImportAssetOptions.ForceSynchronousImport | ImportAssetOptions.ForceUpdate);
+        }
 
-		private static void SetBundleAndAtlas(string path, string name)
+        private static void SetBundleAndAtlas(string path, string name)
 		{
 			AssetImporter importer = AssetImporter.GetAtPath(path);
 			if (importer == null)
@@ -312,22 +311,22 @@ namespace NGameEditor
 			{
 				return;
 			}
-            bundleName = name + ".ngame.unity3d";
+            bundleName =  name + ".ngame.unity3d";
             importer.assetBundleName = bundleName;
 
-			TextureImporter textureImporter = importer as TextureImporter;
-			if (textureImporter == null)
-			{
-				return;
-			}
+            //TextureImporter textureImporter = importer as TextureImporter;
+            //if (textureImporter == null)
+            //{
+            //    return;
+            //}
 
-			if (textureImporter.spritePackingTag != "")
-			{
-				return;
-			}
+            //if (textureImporter.spritePackingTag != "")
+            //{
+            //    return;
+            //}
 
-			textureImporter.spritePackingTag = name;
-			AssetDatabase.ImportAsset(path, ImportAssetOptions.ForceSynchronousImport | ImportAssetOptions.ForceUpdate);
-		}
+            //textureImporter.spritePackingTag = "";
+            //AssetDatabase.ImportAsset(path, ImportAssetOptions.ForceSynchronousImport | ImportAssetOptions.ForceUpdate);
+        }
 	}
 }

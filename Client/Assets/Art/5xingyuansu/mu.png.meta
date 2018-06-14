@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: d2758fb448b61a948a93e8f1582cf11a
-timeCreated: 1528942542
+timeCreated: 1528947643
 licenseType: Pro
 TextureImporter:
   fileIDToRecycleName: {}
@@ -100,7 +100,7 @@ TextureImporter:
     sprites: []
     outline: []
     physicsShape: []
-  spritePackingTag: Mu
+  spritePackingTag: 
   userData: 
   assetBundleName: 
   assetBundleVariant: 
