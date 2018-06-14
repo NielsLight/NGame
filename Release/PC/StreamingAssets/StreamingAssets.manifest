@@ -1,0 +1,19 @@
+ManifestFileVersion: 0
+CRC: 2196374099
+AssetBundleManifest:
+  AssetBundleInfos:
+    Info_0:
+      Name: huo.ngame.unity3d
+      Dependencies: {}
+    Info_1:
+      Name: jin.ngame.unity3d
+      Dependencies: {}
+    Info_2:
+      Name: mu.ngame.unity3d
+      Dependencies: {}
+    Info_3:
+      Name: shui.ngame.unity3d
+      Dependencies: {}
+    Info_4:
+      Name: tu.ngame.unity3d
+      Dependencies: {}

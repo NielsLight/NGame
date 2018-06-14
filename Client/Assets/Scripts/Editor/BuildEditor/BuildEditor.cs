@@ -64,11 +64,9 @@ namespace NGameEditor
 		{
 			ClearPackingTagAndAssetBundle();
 
-			SetIndependentBundleAndAtlas("Assets/Bundles/Independent");
+			SetIndependentBundleAndAtlas("Assets/AssetBundles/Independent");
 
-			SetShareBundleAndAtlas("Assets/Bundles/UI");
-
-			SetShareBundleAndAtlas("Assets/Bundles/Unit");
+			SetShareBundleAndAtlas("Assets/AssetBundles/Share");
 
 			AssetDatabase.SaveAssets();
 			AssetDatabase.Refresh(ImportAssetOptions.ForceSynchronousImport | ImportAssetOptions.ForceUpdate);
@@ -112,7 +110,7 @@ namespace NGameEditor
 				string path1 = path.Replace('\\', '/');
 				Object go = AssetDatabase.LoadAssetAtPath<Object>(path1);
 
-				SetBundle(path1, go.name);
+				SetBundle(path1, go.name.ToLower());
 			}
 		}
 
@@ -131,7 +129,7 @@ namespace NGameEditor
 					Log.Error("error: " + path1);
 					continue;
 				}
-                importer.assetBundleName = string.Format("{0}.unity3d",go.name);
+                importer.assetBundleName = string.Format("{0}.ngame.unity3d",go.name);
 
                 List<string> pathes = CollectDependencies(path1);
 
@@ -151,7 +149,7 @@ namespace NGameEditor
 						continue;
 					}
 
-					SetBundleAndAtlas(pt, go.name);
+					SetBundleAndAtlas(pt, go.name.ToLower());
 				}
 			}
 		}
@@ -217,14 +215,14 @@ namespace NGameEditor
 					DirectoryInfo dirInfo = new DirectoryInfo(dir);
 					string dirName = dirInfo.Name;
 
-                    SetBundleAndAtlas(pt, dirName+"-share");
+                    SetBundleAndAtlas(pt, dirName.ToLower()+"-share");
                 }
 			}
 		}
 
 		private static void ClearPackingTagAndAssetBundle()
 		{
-			List<string> bundlePaths = EditorResHelper.GetAllResourcePath("Assets/Bundles/", true);
+			List<string> bundlePaths = EditorResHelper.GetAllResourcePath("Assets/AssetBundles/", true);
 			foreach (string bundlePath in bundlePaths)
 			{
 				AssetImporter importer = AssetImporter.GetAtPath(bundlePath);
@@ -236,25 +234,25 @@ namespace NGameEditor
 				importer.assetBundleName = "";
 			}
 
-			List<string> paths = EditorResHelper.GetAllResourcePath("Assets/Res", true);
-			foreach (string pt in paths)
-			{
-				string extendName = Path.GetExtension(pt);
-				if (extendName == ".cs")
-				{
-					continue;
-				}
+			//List<string> paths = EditorResHelper.GetAllResourcePath("Assets/Res", true);
+			//foreach (string pt in paths)
+			//{
+			//	string extendName = Path.GetExtension(pt);
+			//	if (extendName == ".cs")
+			//	{
+			//		continue;
+			//	}
 
-				AssetImporter importer = AssetImporter.GetAtPath(pt);
-				if (importer == null)
-				{
-					continue;
-				}
-				//Log.Info(bundlePath);
-				importer.assetBundleName = "";
+			//	AssetImporter importer = AssetImporter.GetAtPath(pt);
+			//	if (importer == null)
+			//	{
+			//		continue;
+			//	}
+			//	//Log.Info(bundlePath);
+			//	importer.assetBundleName = "";
 
-				SetAtlas(pt, "");
-			}
+			//	SetAtlas(pt, "");
+			//}
 		}
 
 		private static void SetBundle(string path, string name)
@@ -275,7 +273,7 @@ namespace NGameEditor
 			{
 				return;
 			}
-            bundleName = name+".unity3d";
+            bundleName = name+".ngame.unity3d";
             importer.assetBundleName = bundleName;
 		}
 
@@ -314,7 +312,7 @@ namespace NGameEditor
 			{
 				return;
 			}
-            bundleName = name + ".unity3d";
+            bundleName = name + ".ngame.unity3d";
             importer.assetBundleName = bundleName;
 
 			TextureImporter textureImporter = importer as TextureImporter;

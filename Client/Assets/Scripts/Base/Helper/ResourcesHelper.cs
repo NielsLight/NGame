@@ -21,8 +21,9 @@ namespace NGame
 			string[] dependencies = new string[0];
 #if UNITY_EDITOR
 				dependencies = AssetDatabase.GetAssetBundleDependencies(assetBundleName, true);
-#endif
+#elif UNITY_STANDALONE
             dependencies = ResourcesComponent.AssetBundleManifestObject.GetAllDependencies(assetBundleName);
+#endif
             return dependencies;
 		}
 

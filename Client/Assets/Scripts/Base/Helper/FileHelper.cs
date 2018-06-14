@@ -8,6 +8,11 @@ namespace NGame
 {
 	public static class FileHelper
 	{
+        /// <summary>
+        /// 循环遍历目录，获取所有文件
+        /// </summary>
+        /// <param name="files"></param>
+        /// <param name="dir"></param>
 		public static void GetAllFiles(List<string> files, string dir)
 		{
 			string[] fls = Directory.GetFiles(dir);

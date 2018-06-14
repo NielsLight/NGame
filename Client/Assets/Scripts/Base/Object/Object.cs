@@ -1,5 +1,4 @@
 ﻿using System.ComponentModel;
-using NGame;
 namespace NGame
 {
     public abstract class Object : ISupportInitialize

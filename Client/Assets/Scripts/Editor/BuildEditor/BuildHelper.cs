@@ -8,12 +8,12 @@ namespace NGameEditor
 	{
 		private const string relativeDirPrefix = "../Release";
 
-		public static string BuildFolder = "../Release/{0}/StreamingAssets/";
+		public static string buildFolder = "../Release/{0}/StreamingAssets/";
 
 		public static void Build(PlatformType type, BuildAssetBundleOptions buildAssetBundleOptions, BuildOptions buildOptions, bool isBuildExe)
 		{
 			BuildTarget buildTarget = BuildTarget.StandaloneWindows;
-			string exeName = "ET";
+			string exeName = "NGame";
 			switch (type)
 			{
 				case PlatformType.PC:
@@ -32,7 +32,7 @@ namespace NGameEditor
 					break;
 			}
 
-			string fold = string.Format(BuildFolder, type);
+			string fold = string.Format(buildFolder, type);
 			if (!Directory.Exists(fold))
 			{
 				Directory.CreateDirectory(fold);
@@ -47,7 +47,7 @@ namespace NGameEditor
 			if (isBuildExe)
 			{
 				string[] levels = {
-					"Assets/Scenes/Init.unity",
+					"Assets/Scenes/Main.unity",
 				};
 				Log.Info("开始EXE打包");
                 BuildPipeline.BuildPlayer(levels, string.Format("{0}/{1}",relativeDirPrefix,exeName), buildTarget, buildOptions);
