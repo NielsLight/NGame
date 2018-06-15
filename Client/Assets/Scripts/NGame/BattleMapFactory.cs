@@ -10,7 +10,7 @@ namespace NGame
     [UIFactory(UIType.GemMap)]
     public class BattleMapFactory : IUIFactory
     {
-        private Dictionary<Vector2, UI> gems = new Dictionary<Vector2, UI>();
+        private Dictionary<Vector2Int, UI> gems = new Dictionary<Vector2Int, UI>();
 
         private Dictionary<GemType, GameObject> items = new Dictionary<GemType, GameObject>();
 
@@ -18,8 +18,24 @@ namespace NGame
 
         private UI map;
 
-        private int row = 5;
-        private int col = 5;
+        private int m_Row = 5;
+        public int row
+        {
+            get
+            {
+                return m_Row;
+            }
+        }
+
+        private int m_Col = 5;
+        
+        public int col
+        {
+            get
+            {
+                return m_Col;
+            }
+        }
 
         private void PrepareResource()
         {
@@ -49,13 +65,13 @@ namespace NGame
             List<GemType> excudeType = new List<GemType>();
             bool bothSame = false;
             GemType preType;
-            for (int i = 0; i < row; i++)
-                for (int j = 0; j < col; j++)
+            for (int i = 0; i < m_Row; i++)
+                for (int j = 0; j < m_Col; j++)
                 {
                     if (i >= 2)
                     {
-                        preType = gems[new Vector2(i - 1, j)].GetComponent<GemComponent>().gemType;
-                        bothSame = preType == gems[new Vector2(i - 2, j)].GetComponent<GemComponent>().gemType;
+                        preType = gems[new Vector2Int(i - 1, j)].GetComponent<GemComponent>().gemType;
+                        bothSame = preType == gems[new Vector2Int(i - 2, j)].GetComponent<GemComponent>().gemType;
                         if (bothSame)
                         {
                             excudeType.Add(preType);
@@ -63,8 +79,8 @@ namespace NGame
                     }
                     if (j >= 2)
                     {
-                        preType = gems[new Vector2(i, j - 1)].GetComponent<GemComponent>().gemType;
-                        bothSame = preType == gems[new Vector2(i, j - 2)].GetComponent<GemComponent>().gemType;
+                        preType = gems[new Vector2Int(i, j - 1)].GetComponent<GemComponent>().gemType;
+                        bothSame = preType == gems[new Vector2Int(i, j - 2)].GetComponent<GemComponent>().gemType;
                         if (bothSame)
                         {
                             excudeType.Add(preType);
@@ -94,9 +110,14 @@ namespace NGame
             }
             GameObject obj = GameObject.Instantiate(items[random]);
             UI gem = ComponentFactory.Create<UI, GameObject>(obj);
-            gem.AddComponent<GemComponent, GemData, GemType>(new GemData(), random);
+            GemComponent gemComp = gem.AddComponent<GemComponent, GemData, GemType>(new GemData(), random);
             gem.gameObject.transform.SetParent(map.gameObject.transform);
-            gems.Add(new Vector2(i, j), gem);
+            UI left;
+            gems.TryGetValue(new Vector2Int(i - 1, j), out left);
+            UI up;
+            gems.TryGetValue(new Vector2Int(i, j - 1), out up);
+            gemComp.SetNeighborhoodUI(left, up);
+            gems.Add(new Vector2Int(i, j), gem);
             return gem;
         }
 

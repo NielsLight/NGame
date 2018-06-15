@@ -93,7 +93,22 @@ namespace NGame
 			}
 		}
 
-		public UI Create(string type)
+        /// <summary>
+        /// 获取组件下的工厂
+        /// </summary>
+        /// <param name="type">工厂属性</param>
+        /// <returns></returns>
+        public IUIFactory GetUIFactory(string type)
+        {
+            IUIFactory uIFactory = null;
+            if(!this.UiTypes.TryGetValue(type,out uIFactory))
+            {
+                Log.Debug(string.Format("{0} 没有继承 IUIFactory", type));
+            }
+            return uIFactory;
+        }
+
+        public UI Create(string type)
 		{
 			try
 			{
@@ -111,6 +126,7 @@ namespace NGame
                 throw new Exception(string.Format("{0} UI 错误: {1}",type,e));
 			}
 		}
+
 
 		public void Add(string type, UI ui)
 		{

@@ -13,6 +13,9 @@
     {
         private GemData gemData;
 
+        public GemComponent leftUI;
+        public GemComponent upUI;
+
         public GemType gemType
         {
             get
@@ -26,6 +29,14 @@
         {
             gemData = data;
             this.m_GemType= type;
+        }
+
+        public void SetNeighborhoodUI(UI left,UI up)
+        {
+            if(left!=null)
+            this.leftUI = left.GetComponent<GemComponent>();
+            if (up != null)
+                this.upUI = up.GetComponent<GemComponent>();
         }
     }
 }
