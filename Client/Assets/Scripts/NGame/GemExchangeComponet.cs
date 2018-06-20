@@ -45,9 +45,7 @@ namespace NGame
 
         private int tweenNum = 0;
 
-        private float tweenInternal = 0.5f;
-
-        public float planeDistance = 100;
+        private float tweenInternal = 0.2f;
 
 
         private bool isProcessing = false;
