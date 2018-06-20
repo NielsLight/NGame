@@ -22,10 +22,21 @@ public struct Vector2Int
         return x == b.x && y == b.y;
     }
 
+    public string ToJson()
+    {
+        return LitJson.JsonMapper.ToJson(this);
+    }
+    public override string ToString()
+    {
+        return string.Format("x: {0} y:{1}",x,y);
+    }
+
     public Vector2Int Abs()
     {
         return new Vector2Int(Math.Abs(x), Math.Abs(y));
     }
+
+    public static Vector2Int Zero = new Vector2Int(0, 0);
     public  static Vector2Int operator-(Vector2Int a, Vector2Int b)
     {
         return new Vector2Int(a.x - b.x, a.y - b.y);

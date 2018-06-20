@@ -28,7 +28,7 @@ namespace NGame
         }
 
         private int m_Col = 5;
-        
+
         public int col
         {
             get
@@ -62,6 +62,7 @@ namespace NGame
             PrepareResource();
             Game.Scene.AddComponent<GemExchangeComponet>();
             map = ComponentFactory.Create<UI, GameObject>(GameObject.Instantiate(m_BattleMap));
+            Game.Scene.AddComponent<StaticGridComponent, Vector3, Vector2Int, Vector2Int>(map.gameObject.transform.position, new Vector2Int(200, 200), new Vector2Int(row, col));
             List<GemType> excudeType = new List<GemType>();
             bool bothSame = false;
             GemType preType;
@@ -105,19 +106,30 @@ namespace NGame
                     random = BattleMapFactory.GetRandomGemTypeExcude(excudeGemTypes[0]);
                     break;
                 case 2:
-                    random = BattleMapFactory.GetRandomGemTypeExcude(excudeGemTypes[0],excudeGemTypes[1]);
+                    random = BattleMapFactory.GetRandomGemTypeExcude(excudeGemTypes[0], excudeGemTypes[1]);
                     break;
             }
-            GameObject obj = GameObject.Instantiate(items[random]);
+            GameObject obj = GameObject.Instantiate(items[random], map.gameObject.transform);
+            Vector2Int key = new Vector2Int(i, j);
+            Vector2Int rawPos;
+            Vector3 pos = Game.Scene.GetComponent<StaticGridComponent>().GetPosInGrid(key,out rawPos);
+            UI gem = ComponentFactory.Create<UI, GameObject>(obj);
+            gem.gameObject.GetComponent<RectTransform>().anchoredPosition = pos;
+            GemComponent gemComp = gem.AddComponent<GemComponent, GemData, GemType>(new GemData(), random);
+            gemComp.SetGridPosition(rawPos);
+            gems.Add(key, gem);
+            return gem;
+        }
+
+        public UI CreateOneGemObject(int col, int depth = 1)
+        {
+            GemType random = BattleMapFactory.GetRandomGemType(BattleMapFactory.gemTypes);
+            GameObject obj = GameObject.Instantiate(items[random], map.gameObject.transform);
+            Vector2Int rawPos = Vector2Int.Zero;
+            obj.gameObject.GetComponent<RectTransform>().anchoredPosition = Game.Scene.GetComponent<StaticGridComponent>().GetSpawPos(col,depth,out rawPos);
             UI gem = ComponentFactory.Create<UI, GameObject>(obj);
             GemComponent gemComp = gem.AddComponent<GemComponent, GemData, GemType>(new GemData(), random);
-            gem.gameObject.transform.SetParent(map.gameObject.transform);
-            UI left;
-            gems.TryGetValue(new Vector2Int(i - 1, j), out left);
-            UI up;
-            gems.TryGetValue(new Vector2Int(i, j - 1), out up);
-            gemComp.SetNeighborhoodUI(left, up);
-            gems.Add(new Vector2Int(i, j), gem);
+            gemComp.SetGridPosition(rawPos);
             return gem;
         }
 

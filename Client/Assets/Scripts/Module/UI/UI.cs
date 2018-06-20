@@ -24,6 +24,21 @@ namespace NGame
 
 		public GameObject gameObject { get; private set; }
 
+        private RectTransform m_RectTransform;
+
+        public RectTransform rectTransform
+        {
+            get
+            {
+                if(m_RectTransform ==null)
+                {
+                    m_RectTransform = this.gameObject.GetComponent<RectTransform>();
+                }
+                return m_RectTransform;
+            }
+        }
+
+
 		public Dictionary<string, UI> children = new Dictionary<string, UI>();
 		
 		public void Awake(GameObject gameObject)

@@ -13,8 +13,14 @@
     {
         private GemData gemData;
 
-        public GemComponent leftUI;
-        public GemComponent upUI;
+        private Vector2Int m_Position;
+        public Vector2Int  gridPos
+        {
+            get
+            {
+                return m_Position;
+            }
+        }
 
         public GemType gemType
         {
@@ -31,12 +37,10 @@
             this.m_GemType= type;
         }
 
-        public void SetNeighborhoodUI(UI left,UI up)
+        public void SetGridPosition(Vector2Int pos)
         {
-            if(left!=null)
-            this.leftUI = left.GetComponent<GemComponent>();
-            if (up != null)
-                this.upUI = up.GetComponent<GemComponent>();
+            this.m_Position = pos;
         }
+        
     }
 }
