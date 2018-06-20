@@ -45,6 +45,10 @@ namespace NGame
 
         private int tweenNum = 0;
 
+        private float tweenInternal = 0.5f;
+
+        public float planeDistance = 100;
+
 
         private bool isProcessing = false;
 
@@ -105,11 +109,11 @@ namespace NGame
                         isProcessing = true;
                     Vector3 posOne = selectGemsList[0].Value.gameObject.transform.position;
                     Vector3 posTwo = selectGemsList[1].Value.gameObject.transform.position;
-                    selectGemsList[0].Value.gameObject.transform.DOMove(posTwo, exchangedTime);
+                    selectGemsList[0].Value.gameObject.transform.DOMove(posTwo, exchangedTime).Play();
                     selectGemsList[1].Value.gameObject.transform.DOMove(posOne, exchangedTime).OnComplete(() =>
                     {
                         ExchangeTwoGems(selectGemsList[0].Key, selectGemsList[1].Key);
-                    });
+                    }).Play();
                 }
                 selectGems.Clear();
             }
@@ -118,6 +122,10 @@ namespace NGame
                 needRemap = false;
                 isProcessing = false;
                 ReMap();
+                if (CheckAndMarkClearGems())
+                {
+                    UpTweenGems();
+                }
             }
         }
 
@@ -211,11 +219,13 @@ namespace NGame
                 alreadyCheckClear = true;
                 if (!CheckAndMarkClearGems())
                 {
+                    Log.Debug("不能交换，回退");
                     selectGems[second] = allGemsObject[second];
                     selectGems[first] = allGemsObject[first];
                 }
                 else
                 {
+                    Log.Debug("可以交换执行消除");
                     UpTweenGems();
                 }
             }
@@ -244,6 +254,7 @@ namespace NGame
         private void UpTweenGems()
         {
             List<Vector2Int> clearInfo = ClearGems();
+            clearInfo = clearInfo.OrderByDescending(item => item.x).ToList();
             List<Vector2Int> checkedInfo = new List<Vector2Int>();
             remappedUIs.Clear();
             StaticGridComponent staticGridComponent = Game.Scene.GetComponent<StaticGridComponent>();
@@ -268,8 +279,11 @@ namespace NGame
                     pos.y += staticGridComponent.CellSize.y * depth;
                     gemComponent.SetGridPosition(pos);
                     tweenNum++;
-                    allGemsObject[moveKey].rectTransform.DOAnchorPos(new Vector3(pos.x,pos.y,0), 0.5f * depth).OnComplete(()=> { tweenNum--; });
+                    //Log.Debug(allGemsObject[moveKey].rectTransform.anchoredPosition.ToString());
+                    allGemsObject[moveKey].gameObject.transform.DOLocalMove(new Vector3(pos.x,pos.y,0), tweenInternal * depth).OnComplete(()=> { tweenNum--;}).Play();
+                    //Log.Debug(allGemsObject[moveKey].rectTransform.anchoredPosition.ToString());
                 }
+                //Log.Debug(clearKey.ToString()+" depth : " +depth);
                 for (int j = 0; j < depth; j++)
                 {
                     UI gem = battleMapFactory.CreateOneGemObject(clearKey.y, j + 1);
@@ -278,15 +292,15 @@ namespace NGame
                     pos.y += staticGridComponent.CellSize.y * depth;
                     gemComponent.SetGridPosition(pos);
                     tweenNum++;
-                    gem.rectTransform.DOAnchorPos(new Vector3(pos.x, pos.y, 0), 0.5f * depth).OnComplete(() => { tweenNum--; });
+                    //Log.Debug(gem.rectTransform.anchoredPosition.ToString());
+                    gem.gameObject.transform.DOLocalMove(new Vector3(pos.x, pos.y,0), tweenInternal * depth).OnComplete(() => { tweenNum--;}).Play();
                     remappedUIs.Add(gem);
                 }
             }
             needRemap = true;
-            Log.Debug("长度1： " + allGemsObject.Count+" 长度2："+remappedUIs.Count);
+            //Log.Debug("长度1： " + allGemsObject.Count+" 长度2："+remappedUIs.Count+" tweenNum : "+tweenNum);
             foreach(var pair in allGemsObject)
             {
-                Debug.Log("key : "+pair.Key+"pos : "+ pair.Value.GetComponent<GemComponent>().gridPos);
                 remappedUIs.Add(pair.Value);
             }
             allGemsObject.Clear();
@@ -297,6 +311,7 @@ namespace NGame
 
         private void ReMap()
         {
+            DOTween.KillAll(true);
             StaticGridComponent staticGridComponent = Game.Scene.GetComponent<StaticGridComponent>();
             foreach (var item in remappedUIs)
             {
@@ -305,7 +320,7 @@ namespace NGame
                 allGemsObject[key] = item;
                 allGemsObject[key].gameObject.GetComponent<Button>().onClick.RemoveAllListeners();
                 AddEventListener(key, allGemsObject[key]);
-                Log.Debug("key: " + key + " position： " + pos);
+               // Log.Debug("key: " + key + " position： " + pos);
             }
         }
 
