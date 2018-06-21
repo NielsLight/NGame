@@ -13,12 +13,14 @@
     <TargetFrameworkIdentifier>.NETFramework</TargetFrameworkIdentifier>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <TargetFrameworkProfile>Unity Subset v3.5</TargetFrameworkProfile>
-    <CompilerResponseFile></CompilerResponseFile>
+    <CompilerResponseFile>
+    </CompilerResponseFile>
     <UnityProjectGenerator>VSTU</UnityProjectGenerator>
     <UnityProjectType>Game:1</UnityProjectType>
     <UnityBuildTarget>StandaloneWindows:5</UnityBuildTarget>
     <UnityVersion>2017.1.0f3</UnityVersion>
-    <RootNamespace></RootNamespace>
+    <RootNamespace>
+    </RootNamespace>
     <LangVersion>4</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -161,7 +163,6 @@
     <Compile Include="Assets\Scripts\Entity\Game.cs" />
     <Compile Include="Assets\Scripts\Entity\Scene.cs" />
     <Compile Include="Assets\Scripts\Entry.cs" />
-    <Compile Include="Assets\Scripts\Module\CanvasType.cs" />
     <Compile Include="Assets\Scripts\Module\ReferenceCollector.cs" />
     <Compile Include="Assets\Scripts\Module\UI\CanvasConfig.cs" />
     <Compile Include="Assets\Scripts\Module\UI\IUIFactory.cs" />
@@ -171,12 +172,20 @@
     <Compile Include="Assets\Scripts\Module\UI\UIFactoryAttribute.cs" />
     <Compile Include="Assets\Scripts\Module\UI\UIType.cs" />
     <Compile Include="Assets\Scripts\NGame\BattleMapFactory.cs" />
-    <Compile Include="Assets\Scripts\NGame\Events\EnterBattle_GenerateMap.cs" />
+    <Compile Include="Assets\Scripts\NGame\Events\EnterBattle_GenerateMapEvent.cs" />
+    <Compile Include="Assets\Scripts\NGame\Events\Entry_CreatePlayerEvent.cs" />
     <Compile Include="Assets\Scripts\NGame\GemComponent.cs" />
     <Compile Include="Assets\Scripts\NGame\GemConfig.cs" />
     <Compile Include="Assets\Scripts\NGame\GemData.cs" />
     <Compile Include="Assets\Scripts\NGame\GemExchangeComponet.cs" />
     <Compile Include="Assets\Scripts\NGame\GemType.cs" />
+    <Compile Include="Assets\Scripts\NGame\Player\NormalPlayerFactory.cs" />
+    <Compile Include="Assets\Scripts\NGame\Player\PlayerFactoryAttribute.cs" />
+    <Compile Include="Assets\Scripts\NGame\Player\IPlayerFactory.cs" />
+    <Compile Include="Assets\Scripts\NGame\Player\Player.cs" />
+    <Compile Include="Assets\Scripts\NGame\Player\PlayerComponent.cs" />
+    <Compile Include="Assets\Scripts\NGame\Player\PlayerInfo.cs" />
+    <Compile Include="Assets\Scripts\NGame\Player\PlayerType.cs" />
     <Compile Include="Assets\Scripts\NGame\StaticGridComponent.cs" />
     <Compile Include="Assets\Scripts\NGame\VectorInt.cs" />
   </ItemGroup>

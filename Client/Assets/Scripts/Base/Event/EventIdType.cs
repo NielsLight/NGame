@@ -8,6 +8,7 @@
 		public const string LoadingBegin = "LoadingBegin";
 		public const string LoadingFinish = "LoadingFinish";
 		public const string TestHotfixSubscribMonoEvent = "TestHotfixSubscribMonoEvent";
+        public const string EntryCreatePlayerEvent = "EntryCreatePlayerEvent";
         public const string EnterBattleGenerateMap = "EnterBattleGenerateMap";
 	}
 }

@@ -1,7 +1,7 @@
 ﻿namespace NGame
 {
     [Event(EventIdType.EnterBattleGenerateMap)]
-    public class EnterBattle_GenerateMap:AEvent
+    public class EnterBattle_GenerateMapEvent:AEvent
     {
         public override void Run()
         {
