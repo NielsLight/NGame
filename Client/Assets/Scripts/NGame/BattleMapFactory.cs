@@ -57,7 +57,7 @@ namespace NGame
 #endif
         }
 
-        public UI Create(Scene scene, string type, GameObject parent)
+        public UI Create(Scene scene, UIType type, GameObject parent)
         {
             PrepareResource();
             Game.Scene.AddComponent<GemExchangeComponet>();
@@ -133,7 +133,7 @@ namespace NGame
             return gem;
         }
 
-        public void Remove(string type)
+        public void Remove(UIType type)
         {
             if (map != null)
                 map.Dispose();

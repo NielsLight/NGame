@@ -6,8 +6,8 @@ namespace NGame
     {
         public override void Run()
         {
-            PlayerInfo playerInfo = new PlayerInfo();
-            Player player = Game.Scene.GetComponent<PlayerComponent>().Create(PlayerType.normal, playerInfo);
+            PlayerInfo playerInfo = PlayerInfo.GetTestPlayerInfo();
+            Player player = Game.Scene.GetComponent<PlayerComponent>().Create(PlayerType.Normal, playerInfo);
 
         }
     }

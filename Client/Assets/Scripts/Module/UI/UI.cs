@@ -22,6 +22,17 @@ namespace NGame
 			}
 		}
 
+        private ReferenceCollector m_Rc;
+        public ReferenceCollector rc
+        {
+            get
+            {
+                if (m_Rc == null)
+                    m_Rc = gameObject.GetComponent<ReferenceCollector>();
+                return m_Rc;
+            }
+        }
+
 		public GameObject gameObject { get; private set; }
 
         private RectTransform m_RectTransform;

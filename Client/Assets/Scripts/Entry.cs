@@ -8,24 +8,16 @@ namespace NGame
 
 		private  void Start()
 		{
-			try
-			{
+            DontDestroyOnLoad(gameObject);
+            Game.EventSystem.Add(DLLType.Model, typeof(Entry).Assembly);
 
-				DontDestroyOnLoad(gameObject);
-				Game.EventSystem.Add(DLLType.Model, typeof(Entry).Assembly);
+            Game.Scene.AddComponent<ResourcesComponent>();
 
-                Game.Scene.AddComponent<ResourcesComponent>();
+            Game.Scene.AddComponent<UIComponent>();
+            Game.Scene.AddComponent<PlayerComponent>();
 
-				Game.Scene.AddComponent<UIComponent>();
-
-
-                Game.EventSystem.Run(EventIdType.EnterBattleGenerateMap);
-			}
-			catch (Exception e)
-			{
-				Log.Error(e);
-			}
-		}
+            Game.EventSystem.Run(EventIdType.EntryCreatePlayerEvent);
+        }
 
 		private void Update()
 		{

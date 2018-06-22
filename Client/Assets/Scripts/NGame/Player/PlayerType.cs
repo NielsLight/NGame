@@ -1,8 +1,8 @@
 ﻿namespace NGame
 {
-    public static class PlayerType
+    public enum PlayerType
     {
-        public const string normal = "Normal";
+        Normal,
     }
 
 }

@@ -28,9 +28,16 @@ namespace NGame
 	/// </summary>
 	public class UIComponent: Component
 	{
-		private GameObject Root;
-		private readonly Dictionary<string, IUIFactory> UiTypes = new Dictionary<string, IUIFactory>();
-		private readonly Dictionary<string, UI> uis = new Dictionary<string, UI>();
+		private GameObject m_Root;
+        public GameObject root
+        {
+            get
+            {
+                return m_Root;
+            }
+        }
+		private readonly Dictionary<UIType, IUIFactory> UiTypes = new Dictionary<UIType, IUIFactory>();
+		private readonly Dictionary<UIType, UI> uis = new Dictionary<UIType, UI>();
 
 		public override void Dispose()
 		{
@@ -41,7 +48,7 @@ namespace NGame
 
 			base.Dispose();
 
-			foreach (string type in uis.Keys.ToArray())
+			foreach (UIType type in uis.Keys.ToArray())
 			{
 				UI ui;
 				if (!uis.TryGetValue(type, out ui))
@@ -58,7 +65,7 @@ namespace NGame
 
 		public void Awake()
 		{
-			this.Root = GameObject.Find("Global/UI/");
+			this.m_Root = GameObject.Find("Global/UI/");
 			this.Load();
 		}
 
@@ -98,7 +105,7 @@ namespace NGame
         /// </summary>
         /// <param name="type">工厂属性</param>
         /// <returns></returns>
-        public IUIFactory GetUIFactory(string type)
+        public IUIFactory GetUIFactory(UIType type)
         {
             IUIFactory uIFactory = null;
             if(!this.UiTypes.TryGetValue(type,out uIFactory))
@@ -108,17 +115,17 @@ namespace NGame
             return uIFactory;
         }
 
-        public UI Create(string type)
+        public UI Create(UIType type)
 		{
 			try
 			{
                 
-				UI ui = UiTypes[type].Create(this.GetParent<Scene>(), type, Root);
+				UI ui = UiTypes[type].Create(this.GetParent<Scene>(), type, m_Root);
 				uis.Add(type, ui);
                 Log.Debug(ui.Name);
 				// 设置canvas
 				string cavasName = ui.gameObject.GetComponent<CanvasConfig>().CanvasName;
-				ui.gameObject.transform.SetParent(this.Root.Get<GameObject>(cavasName).transform, false);
+				ui.gameObject.transform.SetParent(this.m_Root.Get<GameObject>(cavasName).transform, false);
 				return ui;
 			}
 			catch (Exception e)
@@ -127,13 +134,12 @@ namespace NGame
 			}
 		}
 
-
-		public void Add(string type, UI ui)
+        public void Add(UIType type, UI ui)
 		{
 			this.uis.Add(type, ui);
 		}
 
-		public void Remove(string type)
+		public void Remove(UIType type)
 		{
 			UI ui;
 			if (!uis.TryGetValue(type, out ui))
@@ -146,7 +152,7 @@ namespace NGame
 
 		public void RemoveAll()
 		{
-			foreach (string type in this.uis.Keys.ToArray())
+			foreach (UIType type in this.uis.Keys.ToArray())
 			{
 				UI ui;
 				if (!this.uis.TryGetValue(type, out ui))
@@ -158,16 +164,16 @@ namespace NGame
 			}
 		}
 
-		public UI Get(string type)
+		public UI Get(UIType type)
 		{
 			UI ui;
 			this.uis.TryGetValue(type, out ui);
 			return ui;
 		}
 
-		public List<string> GetUITypeList()
+		public List<UIType> GetUITypeList()
 		{
-			return new List<string>(this.uis.Keys);
+			return new List<UIType>(this.uis.Keys);
 		}
 	}
 }

@@ -12,6 +12,17 @@ namespace NGame
     public class Player : Entity
     {
         private PlayerInfo m_PlayerInfo;
+
+        private UI m_UI;
+
+        public UI ui
+        {
+            get
+            {
+                return m_UI;
+            }
+        }
+
         public PlayerInfo playerInfo
         {
             get
@@ -20,11 +31,15 @@ namespace NGame
             }
         }
 
-        public void Awake(PlayerInfo info)
+        public void Awake( PlayerInfo info)
         {
             this.m_PlayerInfo = info;
         }
 
+        public void SetConnectUI(UI ui)
+        {
+            m_UI = ui;
+        }
 
     }
 

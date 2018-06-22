@@ -1,12 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-
+﻿
 namespace NGame
 {
-    public static class UIType
+
+    public enum UIType
     {
-	    public const string Root = "Root";
-	    public const string UILoading = "UILoading";
-        public const string GemMap = "GemMap";
-	}
+        Root,
+        UILoading,
+        GemMap,
+        PlayerHeadWidget,
+        FunctionHallWidget
+    }
 }

@@ -2,7 +2,7 @@
 {
     public interface IPlayerFactory
     {
-        Player CreatePlayer(Entity entity,string type,PlayerInfo playerInfo);
+        Player CreatePlayer(Entity entity, PlayerType type,PlayerInfo playerInfo);
 
         void Remove(string type);
 

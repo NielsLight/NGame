@@ -243,14 +243,7 @@ namespace NGame
                     continue;
                 }
 
-                try
-                {
-                    iAwake.Run(component, p1);
-                }
-                catch (Exception e)
-                {
-                    Log.Error(e);
-                }
+                iAwake.Run(component, p1);
             }
         }
 
@@ -529,15 +522,8 @@ namespace NGame
             }
             foreach (IEvent iEvent in iEvents)
             {
-                try
-                {
-                    if (iEvent != null)
-                        iEvent.Handle();
-                }
-                catch (Exception e)
-                {
-                    Log.Error(e);
-                }
+                if (iEvent != null)
+                    iEvent.Handle();
             }
         }
 

@@ -3,19 +3,29 @@ using System.Collections.Generic;
 using UnityEngine;
 namespace NGame
 {
+    [ObjectSystem]
 
+    public class PlayerComponentAwakeSystem : AwakeSystem<PlayerComponent>
+    {
+        public override void Awake(PlayerComponent self)
+        {
+            self.Awake();
+        }
+    }
     public class PlayerComponent : Component
     {
-        private readonly Dictionary<string, IPlayerFactory> playerTypes = new Dictionary<string, IPlayerFactory>();
+        private readonly Dictionary<PlayerType, IPlayerFactory> playerTypes = new Dictionary<PlayerType, IPlayerFactory>();
+        private readonly Dictionary<PlayerType, Player> players = new Dictionary<PlayerType, Player>();
 
         public void Awake()
         {
-            playerTypes.Clear();
             this.Load();
         }
 
         public void Load()
         {
+            playerTypes.Clear();
+            players.Clear();
             Type[] types = DllHelper.GetMonoTypes();
 
             foreach (Type type in types)
@@ -42,10 +52,21 @@ namespace NGame
                 this.playerTypes.Add(attribute.Type, factory);
             }
         }
-        public Player Create(string type, PlayerInfo playerInfo)
+        public Player Create(PlayerType type, PlayerInfo playerInfo)
         {
             Player player = this.playerTypes[type].CreatePlayer(this.Entity, type, playerInfo);
+            players.Add(type, player);
 
+            return player;
+        }
+
+        public Player GetPlayer(PlayerType type)
+        {
+            Player player;
+            if(!players.TryGetValue(type,out player))
+            {
+                Log.Error("没有这个id的player: " + type);
+            }
             return player;
         }
     }
