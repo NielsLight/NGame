@@ -129,7 +129,7 @@ namespace NGameEditor
 					Log.Error("error: " + path1);
 					continue;
 				}
-                importer.assetBundleName = string.Format("{0}.ngame.unity3d",go.name);
+                importer.assetBundleName = string.Format("ngame.unity3d.{0}", go.name);
 
                 List<string> pathes = CollectDependencies(path1);
 
@@ -272,7 +272,7 @@ namespace NGameEditor
 			{
 				return;
 			}
-            bundleName = name+".ngame.unity3d";
+            bundleName = "ngame.unity3d." + name;
             importer.assetBundleName = bundleName;
 		}
 
@@ -311,7 +311,7 @@ namespace NGameEditor
 			{
 				return;
 			}
-            bundleName =  name + ".ngame.unity3d";
+            bundleName = "ngame.unity3d." + name;
             importer.assetBundleName = bundleName;
 
             //TextureImporter textureImporter = importer as TextureImporter;

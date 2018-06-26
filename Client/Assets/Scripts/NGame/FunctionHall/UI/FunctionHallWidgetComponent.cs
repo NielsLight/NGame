@@ -11,16 +11,40 @@ namespace NGame
             self.Awake();
         }
     }
-    public class FunctionHallWidgetComponent:Component
+    public class FunctionHallWidgetComponent : Component
     {
+        private Button m_SettingBtn;
+        private Button m_RiskBtn;
+        private Button m_FuncBtn;
+        private Button m_HeroBtn;
+        private Button m_WaitterBtn;
         public void Awake()
         {
             ReferenceCollector rc = GetParent<UI>().rc;
-            Button riskBtn = rc.GetExt<Button>("RiskBtn");
-            riskBtn.onClick.AddListener(() => {
-                Log.Debug("进入GemMap");
-                Game.Scene.GetComponent<UIComponent>().root.Get<GameObject>("MainUICanvas").SetActive(false);
-                Game.EventSystem.Run(EventIdType.EnterBattleGenerateMap);
+            m_SettingBtn = rc.GetExt<Button>("SettingBtn");
+            m_SettingBtn.onClick.AddListener(() =>
+            {
+                Game.Scene.GetComponent<FuncHallComponent>().CreateFunc(FuncHallComponent.FuncType.Setting);
+            });
+            m_RiskBtn = rc.GetExt<Button>("RiskBtn");
+            m_RiskBtn.onClick.AddListener(() =>
+            {
+                Game.Scene.GetComponent<FuncHallComponent>().CreateFunc(FuncHallComponent.FuncType.Risk);
+            });
+            m_FuncBtn = rc.GetExt<Button>("FuncBtn");
+            m_FuncBtn.onClick.AddListener(() =>
+            {
+                Game.Scene.GetComponent<FuncHallComponent>().CreateFunc(FuncHallComponent.FuncType.Func);
+            });
+            m_HeroBtn = rc.GetExt<Button>("HeroBtn");
+            m_HeroBtn.onClick.AddListener(() =>
+            {
+                Game.Scene.GetComponent<FuncHallComponent>().CreateFunc(FuncHallComponent.FuncType.Hero);
+            });
+            m_WaitterBtn = rc.GetExt<Button>("WaitterBtn");
+            m_WaitterBtn.onClick.AddListener(() =>
+            {
+                Game.Scene.GetComponent<FuncHallComponent>().CreateFunc(FuncHallComponent.FuncType.Waitter);
             });
         }
     }

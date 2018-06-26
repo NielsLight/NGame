@@ -1,0 +1,11 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<root>
+  <map id ="1" name="无主之地">
+    <chapter id = "1" tasks="1,2,3,5,7"/>
+    <chapter id = "2" tasks="1,2,3,5,7"/>
+  </map>
+  <map id ="2" name="虚空废区">
+    <chapter id = "1" tasks="1,2,3,5,7"/>
+    <chapter id = "2" tasks="1,2,3,5,7"/>
+  </map>
+</root>

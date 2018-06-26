@@ -12,6 +12,7 @@ namespace NGame
         {
             GameObject funchall = AssetDatabase.LoadAssetAtPath<GameObject>("Assets/AssetBundles/Share/FunctionHallWidget.prefab");
             UI ui = ComponentFactory.Create<UI, GameObject>(GameObject.Instantiate(funchall));
+            Game.Scene.AddComponent<FuncHallComponent>();
             ui.AddComponent<FunctionHallWidgetComponent>();
             return ui;
         }

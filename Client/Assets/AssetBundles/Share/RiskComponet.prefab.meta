@@ -1,9 +1,9 @@
 fileFormatVersion: 2
-guid: 83a0d76a079701d4c97e9ec6772a1cea
-timeCreated: 1528882981
+guid: 7946757e853f44143bcb69da08226327
+timeCreated: 1530003828
 licenseType: Pro
 NativeFormatImporter:
   mainObjectFileID: 100100000
   userData: 
-  assetBundleName: ngame.unity3d.battlemap
+  assetBundleName: ngame.unity3d.riskcomponet
   assetBundleVariant: 

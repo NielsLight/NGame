@@ -158,6 +158,8 @@
     <None Include="Assets\3rdParty\DOTween\DOTween50.xml" />
     <None Include="Assets\3rdParty\DOTween\Editor\DOTweenEditor.XML" />
     <None Include="Assets\3rdParty\DOTween\readme.txt" />
+    <None Include="Assets\AssetBundles\Independent\Config\RiskConfig.xml" />
+    <None Include="Assets\AssetBundles\Independent\Config\TaskConfig.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="GenerateTargetFrameworkMonikerAttribute" />
